@@ -1,0 +1,136 @@
+\documentclass{beamer}
+
+% ======== Basic Packages ========
+\usepackage[utf8]{inputenc}   % Encoding
+\usepackage[T1]{fontenc}      % Font encoding
+\usepackage{graphicx}         % For inserting images
+\usepackage{tikz}             % For flexible positioning of images
+\usepackage{pgfplots}         % For plotting graphs
+\pgfplotsset{compat=1.18}
+
+% ======== Theme ========
+\usetheme{Madrid}             % Clean base theme
+\usecolortheme{dolphin}       % Color theme for titles and lists
+\usefonttheme{serif}          % Use the default LaTeX (Computer Modern) serif font
+
+% ======== Logo on every slide ========
+\logo{\includegraphics[height=0.8cm]{logo.png}} % Replace with your logo
+
+% ======== Ready Commands ========
+% Thank You slide
+\newcommand{\ThankYouFrame}{
+\begin{frame}[plain]
+\centering
+{\Huge Thank You!}
+\end{frame}
+}
+
+% ======== Document Info ========
+\title{My Personal Beamer Template}
+\subtitle{Practical Example}
+\author{Your Name Here}
+\date{\today}
+
+\begin{document}
+
+% ======== Title Slide with optional background image ========
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture,overlay]
+\node[at=(current page.center)] {
+    \includegraphics[width=\paperwidth,height=\paperheight]{wallpaperflare.com_wallpaper (16).jpg} % Optional cover image
+};
+\end{tikzpicture}
+
+\titlepage
+\end{frame}
+
+% ======== Content Slide ========
+\section{Introduction}
+\begin{frame}
+\frametitle{Introduction}
+This is a short paragraph showing how to write text in English.
+
+\begin{itemize}
+    \item First point
+    \item Second point
+    \begin{itemize}
+        \item Sub-point
+    \end{itemize}
+    \item Third point
+\end{itemize}
+\end{frame}
+
+% ======== Image Example Slide ========
+\section{Image Example}
+\begin{frame}
+\frametitle{Inserting an Image}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{example-image} % Replace with your own image
+\end{center}
+\end{frame}
+
+% ======== Graph Slide ========
+\section{Graph Example}
+\begin{frame}
+\frametitle{Experimental Graph}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.85\textwidth,
+    height=0.6\textwidth,
+    xlabel={$\sin(i)$},
+    ylabel={$\sin(r)$},
+    xmin=0, xmax=1,
+    ymin=0, ymax=1,
+    grid=major,
+    grid style={gray!35, dashed},
+    minor tick num=1,
+    tick style={black, thin},
+    label style={font=\large},
+    tick label style={font=\small},
+    legend style={font=\small, at={(0.97,0.05)}, anchor=south east, cells={anchor=west}},
+    every axis plot/.append style={thick},
+    mark size=2pt,
+]
+
+% Experimental points with uncertainty
+\addplot+[only marks, mark=*, red, error bars/.cd, y dir=both, y explicit]
+coordinates {
+ (0.000,0.000) +- (0,0.01)
+ (0.087,0.078) +- (0,0.01)
+ (0.174,0.146) +- (0,0.01)
+ (0.259,0.188) +- (0,0.01)
+ (0.342,0.246) +- (0,0.01)
+ (0.423,0.316) +- (0,0.01)
+ (0.500,0.360) +- (0,0.01)
+ (0.574,0.406) +- (0,0.01)
+ (0.643,0.441) +- (0,0.01)
+ (0.707,0.489) +- (0,0.01)
+ (0.766,0.530) +- (0,0.01)
+ (0.819,0.593) +- (0,0.01)
+ (0.866,0.617) +- (0,0.01)
+ (0.906,0.629) +- (0,0.01)
+ (0.940,0.656) +- (0,0.01)
+ (0.966,0.666) +- (0,0.01)
+ (0.985,0.688) +- (0,0.01)
+};
+\addlegendentry{Experimental data}
+
+% Linear fit (Snell’s law)
+\addplot[domain=0:1, samples=2, thick, blue] {0.73*x};
+\addlegendentry{Linear fit: $\sin(r) = 0.73\,\sin(i)$}
+
+% Annotation of slope
+\node at (axis cs:0.45,0.38) [anchor=west, blue, font=\small, rotate=26.5] {$\sin(r) = 0.73\,\sin(i)$};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+% ======== Thank You Slide ========
+\ThankYouFrame
+
+\end{document}
